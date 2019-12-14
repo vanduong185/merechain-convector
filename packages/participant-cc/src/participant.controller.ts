@@ -23,7 +23,9 @@ export class ParticipantController extends ConvectorController<ChaincodeTx> {
     @Param(yup.string())
     id: string,
     @Param(yup.string())
-    name: string
+    name: string,
+    @Param(yup.string())
+    role: string
   ) {
     // Retrieve to see if exists
     const existing = await Participant.getOne(id);
@@ -31,6 +33,7 @@ export class ParticipantController extends ConvectorController<ChaincodeTx> {
     if (!existing || !existing.id) {
       let participant = new Participant();
       participant.id = id;
+      participant.role = role;
       participant.name = name || id;
       participant.msp = this.fullIdentity.getMSPID();
 
@@ -94,9 +97,23 @@ export class ParticipantController extends ConvectorController<ChaincodeTx> {
     id: string
   ) {
     const existing = await Participant.getOne(id);
+    
     if (!existing || !existing.id) {
       throw new Error(`No identity exists with that ID ${id}`);
     }
     return existing;
+  }
+
+  @Invokable()
+  public async delete(
+    @Param(yup.string())
+    id: string
+  ) {
+    const existing = await Participant.getOne(id);
+    if (!existing || !existing.id) {
+      throw new Error(`No identity exists with that ID ${id}`);
+    }
+    
+    await existing.delete();
   }
 }

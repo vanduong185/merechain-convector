@@ -27,12 +27,35 @@ export class PatientController extends ConvectorController<ChaincodeTx> {
   }
 
   @Invokable()
+  public async getByEmail(
+    @Param(yup.string())
+    email: string
+  ) {
+    let query = await Patient.query(Patient, {
+      selector: {
+        "type": "io.worldsibu.merechain.patient",
+        email: {
+          "$eq": email
+        }
+      }
+    });
+
+    const patient = query[0];
+
+    if (!patient || !patient.id) {
+      throw new Error(`No patient exists with that email ${email}`);
+    }
+
+    return patient;
+  }
+
+  @Invokable()
   public async create(
     @Param(Patient)
     patient: Patient
   ) {
     console.log("hello");
-    
+
     let exists = await Patient.getOne(patient.id);
 
     if (!!exists && exists.id) {
@@ -55,7 +78,7 @@ export class PatientController extends ConvectorController<ChaincodeTx> {
   }
 
   @Invokable()
-  public async addMedicalRecord (
+  public async addMedicalRecord(
     @Param(yup.string())
     patientID: string,
     @Param(MedicalRecord.schema())
@@ -63,18 +86,18 @@ export class PatientController extends ConvectorController<ChaincodeTx> {
   ) {
     // Check if the "stated" participant as certifier of the attribute is actually the one making the request
     let participant = await Participant.getOne(medicalRecord.certifierID);
-    
+
     if (!participant || !participant.identities) {
       throw new Error(`No participant found with id ${medicalRecord.certifierID}`);
     }
-    
+
     // Check if the "stated" practitioner as creator of the medical record is actually the one making the request
     let prac = await Practitioner.getOne(medicalRecord.creatorID);
 
     if (!prac || !prac.id) {
       throw new Error(`No practitioner found with id ${medicalRecord.creatorID}`);
     }
-    
+
     // check participant identity, certificate
     const participantActiveIdentity = participant.identities.filter(
       identity => identity.status === true)[0];
@@ -89,7 +112,7 @@ export class PatientController extends ConvectorController<ChaincodeTx> {
     if (!patient || !patient.id) {
       throw new Error(`No person found with id ${patientID}`);
     }
-    
+
     // check permission of practitioner from patient
     if (!this.checkPermission(patient, prac.id)) {
       throw new Error(`Practitioner ${prac.id} doesnt have permission from patient ${patient.id}`);
@@ -98,7 +121,7 @@ export class PatientController extends ConvectorController<ChaincodeTx> {
     if (!patient.medicalRecords) {
       patient.medicalRecords = [];
     }
-    
+
     // check if patient has medical record already created
     let exists = patient.medicalRecords.find(med => med.id === medicalRecord.id);
 
@@ -117,7 +140,7 @@ export class PatientController extends ConvectorController<ChaincodeTx> {
    * @param patientID 
    */
   @Invokable()
-  public async grantPermission (
+  public async grantPermission(
     @Param(yup.string())
     practitionerID: string,
     @Param(yup.string())
@@ -138,7 +161,7 @@ export class PatientController extends ConvectorController<ChaincodeTx> {
     if (!patient.permisions) {
       patient.permisions = [practitionerID];
     } else {
-      if ( patient.permisions.indexOf(practitionerID) < 0) patient.permisions.push(practitionerID);
+      if (patient.permisions.indexOf(practitionerID) < 0) patient.permisions.push(practitionerID);
       else {
         throw new Error(`Practitioner ${practitionerID} already has had permission from patient ${patientID}`);
       }
@@ -153,7 +176,7 @@ export class PatientController extends ConvectorController<ChaincodeTx> {
    * @param patientID 
    */
   @Invokable()
-  public async revokePermission (
+  public async revokePermission(
     @Param(yup.string())
     practitionerID: string,
     @Param(yup.string())
@@ -190,7 +213,7 @@ export class PatientController extends ConvectorController<ChaincodeTx> {
    * @param patient 
    * @param practitionerID 
    */
-  public checkPermission (
+  public checkPermission(
     @Param(Patient.schema())
     patient: Patient,
     @Param(yup.string)

@@ -24,6 +24,9 @@ export class Practitioner extends ConvectorModel<Practitioner> {
   @Validate(yup.string())
   public password: string;
 
+  @Validate(yup.string())
+  public org: string;
+
   @Required()
   @Validate(yup.string())
   public workplace: string;
