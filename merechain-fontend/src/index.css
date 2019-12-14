@@ -1,0 +1,42 @@
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+body, html {
+  height: 100%;
+} 
+
+.container-custom {
+  max-width: 1409px;
+  margin: 0 auto !important;
+}
+
+.profile-container, .feature-container{
+  box-shadow: 1px 1px 5px 0px rgba(161,161,161,1);
+  border-radius: 8px;
+  margin: 30px 2px;
+}
+
+.medical-record-container, .infor-patient-container {
+  box-shadow: 1px 1px 5px 0px rgba(161,161,161,1);
+  border-radius: 8px;
+  margin: 30px 5px;
+}
+
+.logo {
+  width: 50px;
+  float: left;
+  margin-left: 150px;
+  filter: brightness(0.9);
+  cursor: pointer;
+}
