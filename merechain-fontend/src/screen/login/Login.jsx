@@ -13,8 +13,12 @@ export default class Login extends React.Component {
 		};
 	}
 
-	signIn() {
-		window.location.href = "#/merechain";
+	signInDoctor() {
+		window.location.href = "#/merechain/doctor_home";
+	}
+
+	signInPatient() {
+		window.location.href = "#/merechain/patient_home";
 	}
 
 	render() {
@@ -24,7 +28,8 @@ export default class Login extends React.Component {
 					<span className="title">Merechain</span>
 					<MDBInput label="Tên đăng nhập" />
 					<MDBInput label="Mật khẩu" />
-					<MDBBtn gradient="aqua" style={{ borderRadius: 10 }} onClick={this.signIn}>Đăng nhập</MDBBtn>
+					<MDBBtn gradient="aqua" style={{ borderRadius: 10 }} onClick={this.signInDoctor}>Đăng nhập bác sĩ</MDBBtn>
+					<MDBBtn gradient="aqua" style={{ borderRadius: 10 }} onClick={this.signInPatient}>Đăng nhập bệnh nhân</MDBBtn>
 				</div>
 			</div>
 		);
