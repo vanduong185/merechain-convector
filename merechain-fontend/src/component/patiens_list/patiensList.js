@@ -1,6 +1,5 @@
 import React from 'react';
-import { MDBInput } from "mdbreact";
-import Patients from './patien';
+import Patients from './patient';
 
 let PATIENS = [
     {

@@ -1,7 +1,9 @@
 import React from 'react';
-import Home from './screen/doctor/home/Home';
+import DoctorHome from './screen/doctor/home/DoctorHome';
+import PatientHome from './screen/patient/home/PatientHome';
 import CreateMedicalRecord from './screen/doctor/create_medical_record/CreateMedicalRecord';
 import PatientMeres from './screen/doctor/patient_meres/PatientMeres';
+import DoctorPermitted from './screen/patient/doctor_permitted/DoctorPermitted';
 
 
 function Loading() {
@@ -13,9 +15,11 @@ function Loading() {
 }
 
 const routes = [
-  {path: '/merechain/home', exact: true, name: 'Home', component: Home },
+  {path: '/merechain/doctor_home', exact: true, name: 'DoctorHome', component: DoctorHome },
+  {path: '/merechain/patient_home', exact: true, name: 'PatientHome', component: PatientHome },
   {path: '/merechain/create_medical_record', name: 'CreateMedicalRecord', component: CreateMedicalRecord },
-  {path: '/merechain/patient_meres/:id', name: 'PatientMeres', component: PatientMeres }
+  {path: '/merechain/patient_meres/:id', name: 'PatientMeres', component: PatientMeres },
+  {path: '/merechain/doctor_permitted', name: 'DoctorPermitted', component: DoctorPermitted }
 ];
 
 export default routes;

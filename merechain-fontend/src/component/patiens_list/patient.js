@@ -1,5 +1,5 @@
 import React from 'react';
-import './patien.css';
+import './patient.css';
 
 export default class Patient extends React.Component {
     constructor(props) {
