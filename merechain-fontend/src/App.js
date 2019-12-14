@@ -16,7 +16,6 @@ class App extends Component {
         <HashRouter basename="/">
           <Switch>
             <Redirect exact from="/" to="/login" />
-            {/* <Redirect exact from="/merechain" to="/merechain/doctor_home" /> */}
             <Route path="/login" name="Login" component={Login} />
             <Route path="/merechain" name="Home" component={Layout}/>
           </Switch>

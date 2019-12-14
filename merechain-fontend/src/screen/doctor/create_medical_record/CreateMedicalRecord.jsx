@@ -1,6 +1,6 @@
 import React from 'react';
 import './CreateMedicalRecord.css';
-import { MDBInput, MDBBtn } from "mdbreact";
+import { MDBInput } from "mdbreact";
 
 export default class CreateMedicalRecord extends React.Component {
 	constructor() {

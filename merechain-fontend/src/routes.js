@@ -5,7 +5,6 @@ import CreateMedicalRecord from './screen/doctor/create_medical_record/CreateMed
 import PatientMeres from './screen/doctor/patient_meres/PatientMeres';
 import DoctorPermitted from './screen/patient/doctor_permitted/DoctorPermitted';
 
-
 function Loading() {
   return (
     <div>

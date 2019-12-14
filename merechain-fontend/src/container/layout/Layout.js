@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import routes from './../../routes.js';
 import { Redirect, Route, Switch, Link } from 'react-router-dom';
-
 import logo from '../../assets/images/logo.png';
 
 export default class Layout extends Component {
