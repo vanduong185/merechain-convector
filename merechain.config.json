@@ -1,0 +1,26 @@
+{
+  "txTimeout": 300000,
+  "skipInit": true,
+  "controllers": [
+    {
+      "name": "merechain-cc",
+      "version": "file:./packages/merechain-cc",
+      "controller": "ParticipantController"
+    },
+    {
+      "name": "merechain-cc",
+      "version": "file:./packages/merechain-cc",
+      "controller": "PatientController"
+    },
+    {
+      "name": "merechain-cc",
+      "version": "file:./packages/merechain-cc",
+      "controller": "PractitionerController"
+    },
+    {
+      "name": "merechain-cc",
+      "version": "file:./packages/merechain-cc",
+      "controller": "PatientController"
+    }
+  ]
+}
