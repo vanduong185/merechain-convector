@@ -39,7 +39,7 @@ export class PractitionerController extends ConvectorController<ChaincodeTx> {
       throw new Error(`No practitioner exists with that ID ${id}`);
     }
 
-    let admin = await this.findAdminOrg();
+    var admin = await this.findAdminOrg();
 
     if (!admin || !admin.identities) {
       throw new Error('No admin identity has been registered yet');
@@ -59,11 +59,11 @@ export class PractitionerController extends ConvectorController<ChaincodeTx> {
   }
 
   @Invokable()
-  public async getByEmail(
+  public async getByEmail2(
     @Param(yup.string())
     email: string
   ) {
-    let query = await Practitioner.query(Practitioner, {
+    var query = await Practitioner.query(Practitioner, {
       selector: {
         "type": "io.worldsibu.merechain.practitioner",
         email: {
@@ -78,20 +78,63 @@ export class PractitionerController extends ConvectorController<ChaincodeTx> {
       throw new Error(`No practitioner exists with that email ${email}`);
     }
 
-    let admin = await this.findAdminOrg();
+    var admin = await this.findAdminOrg();
 
+    if (!admin || !admin.identities) {
+      throw new Error('No admin identity has been registered yet');
+    }
+    
     const adminActiveIdentity = admin.identities.filter(identity => identity.status === true)[0];
 
     if (this.sender !== adminActiveIdentity.fingerprint) {
       throw new Error(`admin not active`);
     }
 
-    if (admin.msp != practitioner.org) {
-      throw new Error(`Admin ${admin.msp} can not get practitioner of ${practitioner.org}`);
+    if (admin.msp != practitioner.msp) {
+      throw new Error(`Admin ${admin.msp} can not get practitioner of ${practitioner.msp}`);
     }
 
     return practitioner;
   }
+
+  // @Invokable()
+  // public async getByEmail(
+  //   @Param(yup.string())
+  //   email: string
+  // ) {
+
+  //   const exist = await Practitioner.getOne("prac1");
+
+  //   return exist;
+  //   // var query = await Practitioner.query(Practitioner, {
+  //   //   selector: {
+  //   //     "type": "io.worldsibu.merechain.practitioner",
+  //   //     email: {
+  //   //       "$eq": email
+  //   //     }
+  //   //   }
+  //   // });
+
+  //   // const practitioner = query[0];
+
+  //   // if (!practitioner || !practitioner.id) {
+  //   //   throw new Error(`No practitioner exists with that email ${email}`);
+  //   // }
+
+  //   // var admin = await this.findAdminOrg();
+
+  //   // const adminActiveIdentity = admin.identities.filter(identity => identity.status === true)[0];
+
+  //   // if (this.sender !== adminActiveIdentity.fingerprint) {
+  //   //   throw new Error(`admin not active`);
+  //   // }
+
+  //   // if (admin.msp != practitioner.msp) {
+  //   //   throw new Error(`Admin ${admin.msp} can not get practitioner of ${practitioner.msp}`);
+  //   // }
+
+  //   // return practitioner;
+  // }
 
   @Invokable()
   public async delete(

@@ -18,11 +18,7 @@ export class RecordController extends ConvectorController<ChaincodeTx> {
 
   @Invokable()
   public async create(
-    // @Param(yup.string())
-    // practitionerID: string,
-    // @Param(yup.string())
-    // patientID: string,
-    @Param(Record.schema())
+    @Param(Record)
     record: Record
   ) {
     // Check practitioner existing
@@ -49,7 +45,7 @@ export class RecordController extends ConvectorController<ChaincodeTx> {
     // check record existing
     let recordExisting = await Record.getOne(record.id);
 
-    if (recordExisting) {
+    if (recordExisting && recordExisting.id) {
       throw new Error(`Medical record ${record.id} is already created`);
     }
 
@@ -58,7 +54,7 @@ export class RecordController extends ConvectorController<ChaincodeTx> {
 
   @Invokable()
   public async update(
-    @Param(Record.schema())
+    @Param(Record)
     record: Record
   ) {
     // Check practitioner existing
@@ -106,7 +102,7 @@ export class RecordController extends ConvectorController<ChaincodeTx> {
     let existing = await Record.getOne(id);
 
     if (!existing || !existing.id) {
-      throw new Error(`No person found with id ${id}`);
+      throw new Error(`No record found with id ${id}`);
     }
 
     return existing;
@@ -145,6 +141,13 @@ export class RecordController extends ConvectorController<ChaincodeTx> {
 
     if (!patient || !patient.id) {
       throw new Error(`No person found with id ${patientID}`);
+    }
+
+    const patientCtrl = new PatientController();
+
+    // check permission of practitioner to access patient profile
+    if (!patientCtrl.checkPermission(patient, pracID)) {
+      throw new Error(`Practitioner ${pracID} doesn't have permission from patient ${patient.id}`);
     }
 
     var listRecord = await Record.query(Record, {
