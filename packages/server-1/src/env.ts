@@ -15,8 +15,6 @@ export const channel = process.env.CHANNEL || 'ch1';
 export const identityId = process.env.IDENTITY || 'admin-bachmai';
 export const identityName = identities.find(id => id.id === identityId).certId;
 export const identityOrg = identities.find(id => id.id === identityId).certOrg;
-// export const identityName = identities.find(id => id.id === identityId).certId;
-// export const identityOrg = identities.find(id => id.id === identityId).certOrg;
 
 export const keyStore = process.env.KEYSTORE || `/${homedir}/hyperledger-fabric-network/.hfc-${identityOrg}`;
 export const networkProfile = process.env.NETWORKPROFILE || `/${homedir}/hyperledger-fabric-network/network-profiles/${identityOrg}.network-profile.yaml`;

@@ -73,7 +73,6 @@ router.post('/login', async (req: Request, res: Response) => {
 // router.post('/addMedicalRecord', async (req: Request, res: Response) => {
 //   try {
 //     var { patientId, record } = req.body;
-
 //     const mere = new MedicalRecord(record);
 
 //     await PatientControllerBackEnd.addMedicalRecord(patientId, mere);
@@ -91,7 +90,6 @@ router.post('/login', async (req: Request, res: Response) => {
 // router.post('/updateMedicalRecord', async (req: Request, res: Response) => {
 //   try {
 //     var { patientId, record } = req.body;
-
 //     const mere = new MedicalRecord(record);
 
 //     await PatientControllerBackEnd.updateMedicalRecord(patientId, mere);
