@@ -30,13 +30,10 @@ export class Record extends ConvectorModel<Record>{
 
   @Required()
   @Validate(yup.string())
-<<<<<<< HEAD
   public name: string;
 
   @Required()
   @Validate(yup.string())
-=======
->>>>>>> 359a517fa3c5fa992439c632df7ab0bac78af293
   public content: string;
 
   @ReadOnly()

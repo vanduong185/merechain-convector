@@ -59,7 +59,7 @@ export class PractitionerController extends ConvectorController<ChaincodeTx> {
   }
 
   @Invokable()
-  public async getByEmail(
+  public async getByEmail2(
     @Param(yup.string())
     email: string
   ) {
@@ -86,8 +86,8 @@ export class PractitionerController extends ConvectorController<ChaincodeTx> {
       throw new Error(`admin not active`);
     }
 
-    if (admin.msp != practitioner.org) {
-      throw new Error(`Admin ${admin.msp} can not get practitioner of ${practitioner.org}`);
+    if (admin.msp != practitioner.msp) {
+      throw new Error(`Admin ${admin.msp} can not get practitioner of ${practitioner.msp}`);
     }
 
     return practitioner;
