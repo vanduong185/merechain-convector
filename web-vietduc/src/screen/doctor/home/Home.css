@@ -1,0 +1,12 @@
+.line{
+  border-bottom: 1px solid rgb(214, 214, 214);
+  margin-bottom: 15px;
+}
+
+.avatar-container {
+  padding: 15px 0;
+}
+
+.add-mere-btn {
+  width: 97%;
+}
