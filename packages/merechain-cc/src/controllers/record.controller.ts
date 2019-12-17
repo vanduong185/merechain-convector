@@ -152,8 +152,7 @@ export class RecordController extends ConvectorController<ChaincodeTx> {
 
     var listRecord = await Record.query(Record, {
       selector: {
-        patientID: patientID,
-        practitionerID: pracID
+        patientID: patientID
       }
     });
 
